@@ -1,0 +1,10 @@
+﻿@model List<Model.EF.TrangThai> 
+<div class="d-flex flex-column dropdown-distance">
+    @foreach (var it in Model)
+    {        
+        <a href="/trang-thai/@it.MetaTitle-@it.Id_TrangThai">@it.TrangThai1</a>
+    }
+</div>
+
+
+

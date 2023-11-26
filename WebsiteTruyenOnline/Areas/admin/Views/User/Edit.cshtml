@@ -1,0 +1,86 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <title>Cập nhật người dùng</title>
+</head>
+
+@using (Html.BeginForm("Edit","User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model =>model.Id_User)
+    <div class="form-horizontal">
+        <div class="card-header"><h3 class="text-center font-weight-light my-4 mt">Cập nhật tài khoản người dùng</h3></div>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="card-body">
+            <div class="row mb-2 justify-content-center">
+                <div class="col-md-4">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.TextBoxFor(model => model.HoTen, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Họ tên" })
+                        <label for="inputName">Họ tên</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.TextBoxFor(model => model.GioiTinh, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Giới tính" })
+                        <label for="inputName">Giới tính</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-md-4">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.TextBoxFor(model => model.NgaySinh, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Ngày sinh" })
+                        <label for="inputBirthDay">Ngày sinh</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.TextBoxFor(model => model.SDT, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Số điện thoại" })
+                        <label for="inputPhone">Số điện thoại</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-md-8">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Email" })
+                        <label for="inputEmail">Email</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-md-8">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tên tài khoản" })
+                        <label for="inputUsername">Tên tài khoản</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-md-8">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Mật khẩu" })
+                        <label for="inputPassword">Mật khẩu</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-md-8">
+                    <label for="inputStatus" class="my-2 mb-3 mb-md-0">Trạng thái</label>
+                    @Html.CheckBoxFor(model => model.status, new { htmlAttributes = new { @class = "form-control mb-3 mb-md-0" } })
+                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="text-center">
+                    <input type="submit" value="Cập nhật" class="btn btn-primary my-2" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

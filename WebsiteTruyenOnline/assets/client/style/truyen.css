@@ -1,0 +1,218 @@
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.topMainPage{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-image: url(../imageMainPage/topHeaderPage.jpg);
+    background-position-y: -10px;
+}
+.topMainPage .overlay{
+   display: flex;
+   flex-direction: column;
+   flex-grow: 1;
+   background: linear-gradient(90deg, rgba(138,123,127,1) 0%, rgba(231,223,222,0.20521712102809875) 56%);
+   justify-content: center;
+   color: #aaa;
+}
+
+.topNav{
+    height: 55px;
+    width: 100%;
+    box-shadow: 0 1px 10px #aaaaaa;
+}
+
+.warpper {
+    margin: 0 auto;
+    width: 80%;
+
+}
+
+/* Truyện mới đăng */
+
+.updated-Container{
+    width: 100%;
+    box-shadow: 0 0 10px black;
+    padding-top: 24px;
+}
+
+
+.image-box{
+    position: relative;
+    height: auto;
+    margin-bottom: 24px;
+    overflow: hidden;
+ 
+}
+.updated-story-image{
+    width: calc(100% - 40px);
+    height: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+  border-radius: 5px;
+
+
+}
+.image-content{
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    position: absolute;
+    bottom: -100%;
+    left: 20px;
+    width: calc(100% - 40px);
+    height: 30%;
+    box-sizing: border-box;
+    transition: all 0.55s;  
+
+}
+.image-content p{
+    font-size: 15px;
+    padding: 15px 5px 0;
+    text-align: center;
+}
+
+.image-box:hover .image-content{
+    bottom: 0;
+}
+
+/* Custome Search */
+.custome-navbar-search{
+    position: relative;
+}
+
+.search-icon{
+    position: absolute;
+    right: 20px;
+}
+
+.border-search{
+    border-radius: 90px !important;
+}
+
+/* Custome Login - Register */
+.btnLogin{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    opacity: .6;
+    background-color: #ff4d4d;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: .2s;
+    cursor: pointer;
+}
+.btnLogin:hover{
+    background-color: #ff4d4d;
+    color: white;
+    opacity: 1;
+}
+/* Mega Dropdown */
+/* Typical-Dropdown */
+.mega-dropdown-category {
+    overflow: hidden;
+    width: 500px;
+    padding: 20px;
+    background-color: #D5D8DF !important;
+    opacity: .9;
+}
+
+.dropdown-distance a:hover {
+    background-color: #AAACB3;
+}
+
+.dropdown-distance a{
+    padding: 5px;
+    margin: 0 5px;
+}
+
+/* Status-Dropdown */
+.mega-dropdown-status{
+    overflow: hidden;
+    width: 50px;
+    padding: 20px;
+    background-color: #D5D8DF !important;
+    opacity: .9;
+}
+
+/* Release Dropdown */
+.mega-dropdown-release{
+    overflow: hidden;
+    width: 30px;
+    padding: 20px;
+    background-color: #D5D8DF !important;
+    opacity: .9;
+}
+
+/**Chapter**/
+.kieuchu{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.updated-Container1{
+    width: 100%;
+    padding-top: 24px;
+}
+
+.updated-Container1 a{
+    color: #373d3f;
+    line-height: 2;
+}
+
+#chapter-info .chapter-text {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #373d3f;
+    font-family: Roboto,sans-serif;
+}
+
+.dongkengang hr{
+    margin: 0;
+    background-color: rgb(66, 63, 61);
+}
+
+

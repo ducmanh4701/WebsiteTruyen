@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <title>Trang chủ</title>
+</head>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Tổng quan</h1>
+
+        <div class="row">
+            <div class="col-xl-2 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Member</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/Admin/User/Index">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Tác giả</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/Admin/Author/Index">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Thể loại</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/Admin/Category/Index">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Truyện</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/Admin/Story/Index">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Bình luận</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/Admin/Comment/Index">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

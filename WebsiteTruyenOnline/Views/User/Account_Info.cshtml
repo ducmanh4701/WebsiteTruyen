@@ -1,0 +1,91 @@
+﻿
+@model Model.EF.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+    var session = (WebsiteTruyenOnline.Common.UserLogin)Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION];
+
+}
+
+
+
+<div class="container box-shadow">
+    <div class="d-flex mb-3 mt-2">
+        <a style="font-size: 16px;" href="/Home/Index">Trang chủ</a>
+        <a class="ml-2 mr-2">></a>
+        <a style="font-size: 16px;" href="#">Thông tin chung</a>
+    </div>
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="collapse-container bg-dark pl-2 pt-2">
+                <div class="collapse-container__avatar">
+                    <img class="collapse-container__avatar__image" src="../assets/client/imageMainPage/icon.png" alt="">
+                </div>
+                <div class="collapse-container__username">
+                    <div class="text-light">Tài khoản của</div>
+                    <div class="text-light" style="font-weight: bold;" id="username">@Model.UserName</div>
+                </div>
+            </div>
+            <div>
+                <ul class="nav justify-content-center flex-column mt-2 nav-item--boder">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="/User/Index/@Model.Id_User"><i class="fas fa-user"></i> Thông tin chung</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link activting" href="/User/Account_Info/@Model.Id_User"><i class="fas fa-info-circle"></i> Thông tin tài khoản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/User/Following_Story/@Model.Id_User"><i class="fas fa-book"></i> Truyện theo dõi</a>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="/User/Change_Password/@Model.Id_User"><i class="fas fa-lock"></i> Cập nhật tài khoản</a>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <h4 style="font-weight: bold;" class="gobal-info">THÔNG TIN TÀI KHOẢN</h4>
+
+     
+            <div class="row">
+                <div class="col-md-9 col-12">
+                    <div class="form-group">
+                        <label for="disabledInputAccountName" style="font-weight: bold;">Tài khoản</label>
+                        <input type="email" value="@Model.UserName" class="form-control input-form " id="disabledInputAccountName" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="disabledInputEmail" style="font-weight: bold;">Địa chỉ Email</label>
+                        <input type="email" value="@Model.Email" class="form-control input-form " id="disabledInputEmail" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFirstName" style="font-weight: bold;">Tên</label>
+                        <input type="email" value="@Model.HoTen" class="form-control input-form " id="exampleInputFirstName" aria-describedby="emailHelp"
+                               placeholder="Nhập Tên">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputSelect" style="font-weight: bold;">Giới tính</label>
+                        <input type="email" value="@Model.GioiTinh" class="form-control input-form " id="disabledInputSelect" disabled>
+                            
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-12">
+                    <div>Avatar</div>
+                    <div>
+                        <img class="custom-avatar" src="../assets/client/imageMainPage/icon.png" alt="">
+                        <input type="file" class="form-control-file">
+                        <div style="font-style: italic;font-size: 13px;color: red;">Nếu đăng hình tục tĩu sẽ bị banned vĩnh viễn</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

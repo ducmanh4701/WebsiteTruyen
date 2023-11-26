@@ -1,0 +1,38 @@
+﻿@model  WebsiteTruyenOnline.Models.LoginModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Đăng nhập</title>
+</head>
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+
+    <div class="warpper mt-2">
+        <div>
+            <form class="custom-form">
+                <div style="padding-bottom: 50px;">
+                    <h1 class="justify-content-between">Đăng nhập</h1>
+                    <img class="logo-login-form rounded-circle mx-auto d-block" src="../assets/client/imageMainPage/logo-dai-hoc-hutech_012634748.jpg"
+                </div>
+
+                <div class="form-group">
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <label for="exampleInputEmail1" style="font-weight: bold;">Tên tài khoản</label>
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control input-form", @autofucus = "autofocus" })
+                    <small id="emailHelp" class="form-text text-muted">Chúng tôi sẽ không bao giờ chia sẽ tài khoản của bạn cho bất kì ai!</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" style="font-weight: bold;">Mật khẩu</label>
+                    @Html.PasswordFor(model => model.PassWord, new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="font-weight: bold;">Đăng nhập</button>
+                <p class="mt-2" style="text-align:center;">Chưa có tài khoản - <a href="/Dang-ky">Đăng ký tài khoản</a></p>
+
+
+            </form>
+        </div>
+    </div>
+}

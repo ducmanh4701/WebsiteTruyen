@@ -1,0 +1,32 @@
+﻿@model List<Model.EF.BinhLuan>
+@{
+    var session = (WebsiteTruyenOnline.Common.UserLogin) Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION];
+}
+
+<div class="media border p-3">
+    @if (session == null)
+    {
+        <div style="background-color: #dff0d8;padding: 15px 20px;" class="following-story__info">
+            Bạn phải đăng nhập để thực hiện chức năng này
+        </div>
+    }
+    else
+    {
+        <img src="#" alt="@session.UserName" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+        <div class="media-body">
+            <textarea rows="3" class="w-100" placeholder="Thêm bình luận"></textarea>
+            }
+
+            @foreach (var it in Model)
+            {
+                <div class="media p-3">
+                    <img src="" alt="@it.User.HoTen" class="mr-3 mt-3 rounded-circle" style="width:45px;">
+                    <div class="media-body">
+                        <h4>@it.User.HoTen <small><i>@it.CreateTime</i></small></h4>
+                        <p>@it.NoiDung</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

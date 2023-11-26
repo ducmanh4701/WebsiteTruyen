@@ -1,0 +1,173 @@
+﻿@model Model.EF.ChuongTruyen
+@{
+    ViewBag.Title = "DocTruyen";
+    var Truyen = (Model.ViewModel.StoryViewModel)ViewBag.Truyen;
+    var ChuongTruyen = (List<Model.EF.ChuongTruyen>)ViewBag.Chuongtruyen;
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+    var comment = (List<Model.EF.BinhLuan>)ViewBag.Comment;
+}
+
+<head>
+    <title>@Model.Ten_Chuong</title>
+</head>
+
+<!---->
+<div class="container">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="/@Truyen.MetaTitle-@Truyen.ID">@Truyen.Name</a></li>
+        <li class="breadcrumb-item active">@Model.Ten_Chuong</li>
+    </ul>
+</div>
+
+<!-- This is Content -->
+
+<div class="nav justify-content-center">
+    <h2>Chương @Model.DisplayOrder</h2>
+</div>
+<br>
+<br>
+<div class="nav justify-content-center">
+    <div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <svg width="16" height="16" fill="currentColor" class="bi bi-border-width" viewBox="0 0 16 16">
+                    <path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" />
+                </svg>
+                Chương
+            </button>
+            <div class="dropdown-menu">
+                @foreach (var it in ChuongTruyen)
+                {
+                    <a class="dropdown-item" href="/@Truyen.MetaTitle/@it.MetaTitle-@it.Id_Chuong">Chương @it.DisplayOrder</a>
+                }
+            </div>
+        </div>
+        <div class="btn-group">
+            <a href="/@Truyen.MetaTitle/@Model.MetaTitle-@(Model.Id_Chuong+1)" title="Chương @(Model.DisplayOrder+1)">
+                <button type="button" class="btn btn-primary ">
+                    <svg width="20" height="24" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                    </svg>
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<!--Text To Speech-->
+<div class="col-12">
+    <div class="col-12" style="display: flex; justify-content: center; padding: 16px;">
+        Select Voice: <select id='voiceList'></select>
+    </div>
+    <div class="col-12" style="display: flex; justify-content: center; padding: 16px;">
+        <button id='btnSpeak'>Speak!</button>
+        <button id='btnStop'>Stop!</button>
+
+    </div>
+</div>
+
+<input id='txtInput' hidden value=""/>
+
+
+<script>
+    var txtInput = document.querySelector('#txtInput');
+    var voiceList = document.querySelector('#voiceList');
+    var btnSpeak = document.querySelector('#btnSpeak');
+    var btnStop = document.querySelector('#btnStop');
+    var synth = window.speechSynthesis;
+    var voices = [];
+
+    // A $( document ).ready() block.
+    $(document).ready(function () {
+        var innerText = document.getElementById('chapter-content');
+        var text = innerText.innerHTML;
+
+        text = text.replaceAll("<br>", "");
+        text = text.replaceAll(/<div.*<\/div>/g, "");
+        $('#txtInput').val(text);
+    });
+
+    PopulateVoices();
+    if (speechSynthesis !== undefined) {
+        speechSynthesis.onvoiceschanged = PopulateVoices;
+    }
+
+    btnSpeak.addEventListener('click', () => {
+        var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
+        var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+        voices.forEach((voice) => {
+            if (voice.name === selectedVoiceName) {
+                toSpeak.voice = voice;
+            }
+        });
+        synth.speak(toSpeak);
+    });
+
+    btnStop.addEventListener('click', () => {
+        synth.cancel();  
+    });
+
+    function PopulateVoices() {
+        voices = synth.getVoices();
+        var selectedIndex = voiceList.selectedIndex < 0 ? 0 : voiceList.selectedIndex;
+        voiceList.innerHTML = '';
+        voices.forEach((voice) => {
+            var listItem = document.createElement('option');
+            listItem.textContent = voice.name;
+            listItem.setAttribute('data-lang', voice.lang);
+            listItem.setAttribute('data-name', voice.name);
+            voiceList.appendChild(listItem);
+        });
+
+        voiceList.selectedIndex = selectedIndex;
+    }
+</script>
+<!--End Text To Speech-->
+<!--Noi Dung-->
+<br>
+<div id="chapter-info">
+    <div class="container">
+        <br>
+        <div class="chapter-text">
+            @Html.Raw(Model.NoiDung_Chuong)
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="nav justify-content-center">
+    <div>
+        @*<div class="btn-group">
+                <a href="/@Truyen.MetaTitle/@Model.MetaTitle-@(Model.Id_Chuong-1)" title="Chương @(Model.DisplayOrder-1)">
+                    <button type="button" class="btn btn-primary ">
+                        <svg width="20" height="24" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                        </svg>
+                    </button>
+                </a>
+            </div>*@
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <svg width="16" height="16" fill="currentColor" class="bi bi-border-width" viewBox="0 0 16 16">
+                    <path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" />
+                </svg>
+                Chương
+            </button>
+            <div class="dropdown-menu">
+                @foreach (var it in ChuongTruyen)
+                {
+                    <a class="dropdown-item" href="/@Truyen.MetaTitle/@it.MetaTitle-@it.Id_Chuong">Chương @it.DisplayOrder</a>
+                }
+            </div>
+        </div>
+        <div class="btn-group">
+            <a href="/@Truyen.MetaTitle/@Model.MetaTitle-@(Model.Id_Chuong+1)" title="Chương @(Model.DisplayOrder+1)">
+                <button type="button" class="btn btn-primary ">
+                    <svg width="20" height="24" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                    </svg>
+                </button>
+            </a>
+        </div>
+    </div>
+</div>

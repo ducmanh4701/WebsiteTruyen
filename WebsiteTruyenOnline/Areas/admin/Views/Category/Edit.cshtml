@@ -1,0 +1,35 @@
+﻿@model Model.EF.TheLoai
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <title>Cập nhật thể loại</title>
+</head>
+
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id_TheLoai)
+    <div class="form-horizontal">
+        <div class="card-header"><h3 class="text-center font-weight-light my-4 mt">Cập nhật thể loại</h3></div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="card-body">
+            <div class="row mb-2 justify-content-center">
+                <div class="col-md-8">
+                    <div class="form-floating mb-3 mb-md-0">
+                        @Html.TextBoxFor(model => model.Ten_TheLoai, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Email" })
+                        <label for="inputName">Tên thể loại</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <input type="submit" value="Cập nhật" class="btn btn-primary my-2" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

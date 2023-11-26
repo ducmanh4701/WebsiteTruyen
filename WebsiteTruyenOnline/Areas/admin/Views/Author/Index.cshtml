@@ -1,0 +1,69 @@
+﻿@model List<Model.EF.TacGia>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <title>Danh sách tác giả</title>
+</head>
+
+<main>
+    
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Danh sách tác giả</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/Admin/Home">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách tác giả</li>
+        </ol>
+        <div class="col-lg-4"></div> <a class="button" href="/Admin/Author/Create">Thêm mới tác giả</a>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tác giả</th>
+                            <th>Số truyện</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Tác giả</th>
+                            <th>Số truyện</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var it in Model)
+                        {
+                            <tr>
+                                <td>@it.Id_TacGia</td>
+                                <td>@it.Ten_TacGia</td>
+                                <td>@it.Truyens.Count <a class="m-lg-3" href="#">Chi tiết</a></td>
+                                <td>
+                                    <a href="/Admin/Author/Edit/@it.Id_TacGia">Sửa</a>
+                                    |
+                                    @Ajax.ActionLink("Xóa", "Delete", new {@id = it.Id_TacGia}, new AjaxOptions
+                               {
+                                   Confirm = "",
+                                   OnComplete = "$('#row_" + it.Id_TacGia + "').remove()",
+                                   HttpMethod = "Delete"
+                               })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+

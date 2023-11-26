@@ -1,0 +1,69 @@
+﻿@model List<Model.EF.BinhLuan>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <title>Danh sách bình luận</title>
+</head>
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Danh sách bình luận</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/Admin/Home">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách bình luận</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Truyện</th>
+                            <th>Tài khoản bình luận</th>
+                            <th>Nội dung bình luận</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Truyện</th>
+                            <th>Tài khoản bình luận</th>
+                            <th>Nội dung bình luận</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var it in Model)
+                        {
+                            <tr>
+                                <td>@it.Id_BinhLuan</td>
+                                <td>@it.Truyen.Ten_Truyen</td>
+                                <td>@it.User.UserName</td>
+                                <td>@it.NoiDung</td>
+                                <td>
+                                    @Ajax.ActionLink("Xóa", "Delete", new { id = it.Id_BinhLuan}, new AjaxOptions
+                               {
+                                   Confirm = "Bạn có muốn xóa bình luận?",
+                                   OnComplete = "$('#row_"+ it.Id_BinhLuan+ "').remove()",
+                                   HttpMethod = "Delete"
+                               })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+

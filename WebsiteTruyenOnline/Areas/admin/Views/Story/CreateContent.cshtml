@@ -1,0 +1,47 @@
+﻿@model Model.EF.ChuongTruyen
+
+@{
+    ViewBag.Title = "CreateContent";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <title>Thêm mới nội dung truyện</title>
+</head>
+
+@using (Html.BeginForm("CreateContent", "Story", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="card-header"><h3 class="text-center font-weight-light my-4 mt">Thêm mới nội dung</h3></div>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger"})
+    <div class="card-body">
+        <div class="row mb-2 justify-content-center">
+            <div class="col-md-8">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.Ten_Chuong, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tên chương" })
+                    <label for="inputName">Tên chương</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.MetaTitle, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "MetaTitle" })
+                    <label for="inputMetatitle">MetaTitle</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.NoiDung_Chuong, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Nội dung chương" })
+                    <label for="inputName">Nội dung chương</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <input type="submit" value="Thêm mới" class="btn btn-primary my-2" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+}
+

@@ -1,0 +1,9 @@
+﻿@model List<Model.EF.TheLoai>
+
+<div class="col-md-4 d-flex flex-column dropdown-distance">
+    @foreach (var it in Model)
+    {
+        <a href="/the-loai/@it.MetaTitle-@it.Id_TheLoai">@it.Ten_TheLoai</a>
+    }
+</div>
+

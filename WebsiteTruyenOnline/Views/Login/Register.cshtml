@@ -1,0 +1,72 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Đăng ký</title>
+</head>
+
+@using (Html.BeginForm("Register", "Login", FormMethod.Post))
+{
+    <div class="warpper mt-2">
+        <div>
+            <form class="custom-form">
+                <div style="padding-bottom: 20px;">
+                    <h1>Đăng ký</h1>
+                    <img class="logo-login-form rounded-circle mx-auto d-block" src="../assets/client/imageMainPage/logo-dai-hoc-hutech_012634748.jpg" style="width:300px;"/>
+                </div>
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="exampleInputFirstName" style="font-weight: bold;">Họ</label>
+                        @Html.TextBoxFor(model => model.HoTen, new { @class = "form-control input-form", @placeholder = "Nhập họ tên" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="exampleDate" style="font-weight: bold;">Ngày sinh</label>
+                        @Html.TextBoxFor(model => model.NgaySinh, new { @class = "form-control input-form", @placeholder = "Nhập ngày sinh" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="exampleUserName" style="font-weight: bold;">Giới Tính</label>
+                        @Html.DropDownListFor(model => model.GioiTinh,
+                       new List<SelectListItem>()
+                       {
+                           new SelectListItem(){Selected = true, Text = "Nam", Value="Nam"},
+                           new SelectListItem(){Selected = false, Text = "Nữ", Value = "Nữ"},
+                       }
+                       , new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Giới tính" })
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="examplePhonenumber" style="font-weight: bold;">Số điện thoại</label>
+                        @Html.TextBoxFor(model => model.SDT, new { @class = "form-control input-form", @placeholder = "Nhập số điện thoại" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleUserName" style="font-weight: bold;">Tên đăng nhập</label>
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control input-form", @id = "exampleUserName", @placeholder = "Nhập tên đăng nhập" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1" style="font-weight: bold;">Địa chỉ Email</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-form", @id = "exampleInputEmail1", @placeholder = "Nhập Email" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" style="font-weight: bold;">Mật khẩu</label>
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @id = "exampleInputPassword1", @placeholder = "Nhập mật khẩu" })
+                </div>
+                <div class="form-group form-check">
+                    @Html.CheckBoxFor(model => model.status, new { @class = "form-check-input", @id = "exampleCheck1" })
+                    <label class="form-check-label" for="exampleCheck1">Tôi đồng ý với các điều khoản</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="font-weight: bold;">Tạo tài khoản</button>
+                <p class="mt-2" style="text-align: center;">Đã có tài khoản - <a href="/Login/Index">Trở về đăng nhập</a></p>
+
+
+            </form>
+        </div>
+    </div>
+}

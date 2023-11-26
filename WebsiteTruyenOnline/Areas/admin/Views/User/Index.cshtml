@@ -1,0 +1,79 @@
+﻿@model List<Model.EF.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <title>Danh sách người dùng</title>
+</head>
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Danh sách người dùng</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/Admin/Home">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách người dùng</li>
+        </ol>
+        <div class="col-lg-4"></div> <a class="button" href="/Admin/User/Create">Thêm mới người dùng</a>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Họ tên</th>
+                            <th>Giới tính</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Ngày sinh</th>
+                            <th>Ngày tạo</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Họ tên</th>
+                            <th>Giới tính</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Ngày sinh</th>
+                            <th>Ngày tạo</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </tfoot>
+                    <tbody> 
+                        @foreach (var it in Model)
+                        {
+                            <tr>
+                                <td>@it.Id_User</td>
+                                <td>@it.HoTen</td>
+                                <td>@it.GioiTinh</td>
+                                <td>@it.SDT</td>
+                                <td>@it.Email</td>
+                                <td>@it.UserName</td>
+                                <td>@it.NgaySinh</td>
+                                <td>@it.CreateTime</td>
+                                <td>
+                                    <a href="/Admin/User/Edit/?id=@it.Id_User">Sửa</a>
+                                    |
+                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = it.Id_User}, new AjaxOptions
+                               {
+                                   Confirm = "Bạn có muốn xóa người dùng này?",
+                                   OnComplete = "$('#row_" + it.Id_User + "').remove()",
+                                   HttpMethod = "Delete"
+                               })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

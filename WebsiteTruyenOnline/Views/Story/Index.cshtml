@@ -1,0 +1,137 @@
+﻿@model Model.ViewModel.StoryViewModel
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+    var Chuongtruyens = (List<Model.EF.ChuongTruyen>)ViewBag.Chuongtruyen;
+}
+
+<head>
+    <title>@Model.Name</title>
+</head>
+
+
+<div id="chapter-info">
+    <div class="container" style="font-size: 18px;">
+        <div>
+            <div class="row updated-Container ml-1 mt-2 ">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <img class="updated-story-image " src="@Model.Avt" style="height: 350px;">
+                </div>
+                <div class="col-xl-8 col-lg-6 col-md-6">
+                    <p class="kieuchu">TÊN TRUYỆN: @Model.Name</9>
+                    <p>
+                        <svg width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg> Tác giả : @Model.NameAuthor
+                    </p>
+                    <p>
+                        <svg width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
+                        </svg> Trạng thái: @Model.Status
+                    </p>
+                    <p>
+                        <svg width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                        </svg> Lượt xem : @Model.View
+                    </p>
+                    <div>
+                        Bạn đang đọc truyện tại website đọc truyện online
+                    </div>
+                    <div id="demo" class="collapse">
+                        @Model.GioiThieu
+                    </div>
+                    <a href="#demo" data-toggle="collapse">Xem thêm</a>
+                </div>
+                <br>
+                <div class="col-xl-12 ">
+                    <br>
+                    <h3>
+                        <svg width="28" height="28" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                        </svg> Danh Sách chương
+                    </h3>
+                    <div id="accordion">
+                        <div class="card">
+                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                <div class="card-body row updated-Container1 ml-1 mt-2 dongkengang">
+                                    @foreach (var it in Chuongtruyens)
+                                    {
+                                        <div class="col-xl-6 col-lg-4 col-md-6" id="accordion">
+                                            <a href="/@Model.MetaTitle/@it.MetaTitle-@it.Id_Chuong">Chương @it.DisplayOrder: @it.Ten_Chuong</a><hr>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                <div class="card-body row updated-Container1 ml-1 mt-2">
+                                    <div class="col-xl-6 col-lg-4 col-md-6" id="accordion">
+                                        <a href="#">Chapter 13: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 14: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 15: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 16: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 17: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 18: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 19: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 20: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 21: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 22: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 23: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="#">Chapter 24: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                <div class="card-body row updated-Container1 ml-1 mt-2">
+                                    <div class="col-xl-6 col-lg-4 col-md-6" id="accordion">
+                                        <a href="../Chapter/Chapter_1.html">Chapter 25: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4 col-md-6">
+                                        <a href="../Chapter/Chapter_2.html">Chapter 26: Địa Ngục Linh Chi (2)</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <div class="container">
+                                    <ul class="pagination pagination justify-content-center">
+                                        <li class="page-item"><a class="page-link" data-toggle="collapse" href="#">First</a></li>
+                                        <li class="page-item"><a class="page-link" data-toggle="collapse" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" data-toggle="collapse" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" data-toggle="collapse" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" data-toggle="collapse" href="#">Last</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><br><br><hr>
+                              <div class="col-12 ">
+                                  <h3>Bình Luận</h3>
+                                  @{Html.RenderAction("Comment", "Story");}
+                              </div>
+            </div>
+        </div>
+        <hr>

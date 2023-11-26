@@ -1,0 +1,112 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "Following_Story";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="container box-shadow">
+    <div class="d-flex mb-3 mt-2">
+        <a style="font-size: 16px;" href="/Home/Index">Trang chủ</a>
+        <a class="ml-2 mr-2">></a>
+        <a style="font-size: 16px;" href="#">Thông tin chung</a>
+    </div>
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="collapse-container bg-dark pl-2 pt-2">
+                <div class="collapse-container__avatar">
+                    <img class="collapse-container__avatar__image" src="../assets/client/imageMainPage/icon.png" alt="">
+                </div>
+                <div class="collapse-container__username">
+                    <div class="text-light">Tài khoản của</div>
+                    <div class="text-light" style="font-weight: bold;" id="username">@Model.UserName</div>
+                </div>
+            </div>
+            <div>
+                <ul class="nav justify-content-center flex-column mt-2 nav-item--boder">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="/User/Index/@Model.Id_User"><i class="fas fa-user"></i> Thông tin chung</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/User/Account_Info/@Model.Id_User"><i class="fas fa-info-circle"></i> Thông tin tài khoản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link activting" href="/User/Following_Story/@Model.Id_User"><i class="fas fa-book"></i> Truyện theo dõi</a>
+                    </li>
+
+                    <a class="nav-link" href="/User/Change_Password/@Model.Id_User"><i class="fas fa-lock"></i> Cập nhật tài khoản</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h4 style="font-weight: bold;" class="gobal-info">TRUYỆN ĐANG THEO DÕI</h4>
+
+            <div style="background-color: #dff0d8;" class="following-story__info">
+                Truyện chưa đọc sẽ hiển thị ở đầu danh sách, nhấn vào "Đã đọc" nếu truyện đọc rồi.
+            </div>
+
+
+
+            <table class="table table-light table-stripe table-border">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th></th>
+                        <th style="font-weight: bold;" class="text-nowrap">TÊN TRUYỆN</th>
+                        <th style="font-weight: bold;" class="text-nowrap">XEM GẦN NHẤT</th>
+                        <th style="font-weight: bold;" class="text-nowrap">CHAP MỚI NHẤT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="../assets/client/imageMainPage/longVuongTruyenThuyet.jpg" class="table-image ml-2" alt="">
+                        </td>
+                        <td>
+                            <div style="color:#288ad6;font-weight:bold;">Toàn chức pháp sư</div>
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-12 col-12" style="color:#73c75f;font-style: italic;font-size: 14px;">
+                                    <i class="fas fa-check"></i>Đã đã
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-12" style="color:#dd8da8;font-style: italic;font-size: 14px;">
+                                    <i class="fas fa-times"></i>Bỏ theo dõi
+                                </div>
+                            </div>
+
+                        </td>
+                        <td style="font-style: italic;font-size: 14px;">34 phút trước</td>
+                        <td>
+                            <div style="font-size: 14px;">Chương 754</div>
+                            <div style="font-style: italic;font-size: 14px;">3 ngày trước</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../assets/client/imageMainPage/longVuongTruyenThuyet2.jpg" class="table-image ml-2" alt="">
+                        </td>
+                        <td>
+                            <div style="color:#288ad6;font-weight:bold;">Toàn chức pháp sư</div>
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-12 col-12" style="color:#73c75f;font-style: italic;font-size: 14px;">
+                                    <i class="fas fa-check"></i>Đã đã
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-12" style="color:#dd8da8;font-style: italic;font-size: 14px;">
+                                    <i class="fas fa-times"></i>Bỏ theo dõi
+                                </div>
+                            </div>
+
+                        </td>
+                        <td style="font-style: italic;font-size: 14px;">34 phút trước</td>
+                        <td>
+                            <div style="font-size: 14px;">Chương 754</div>
+                            <div style="font-style: italic;font-size: 14px;">3 ngày trước</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+  </div>
+
