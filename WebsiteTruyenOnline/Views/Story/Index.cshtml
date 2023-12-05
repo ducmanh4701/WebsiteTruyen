@@ -2,11 +2,16 @@
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_Layouts.cshtml";
-    var Chuongtruyens = (List<Model.EF.ChuongTruyen>)ViewBag.Chuongtruyen;
+    var Chuongtruyens = (List<Model.ViewModel.ChuongTruyenViewModel>)ViewBag.Chuongtruyen;
 }
 
 <head>
     <title>@Model.Name</title>
+    <style>
+        .IsRead {
+            color: #e28743 !important;
+        }
+    </style>
 </head>
 
 
@@ -42,7 +47,12 @@
                     <div id="demo" class="collapse">
                         @Model.GioiThieu
                     </div>
-                    <a href="#demo" data-toggle="collapse">Xem thêm</a>
+                    <a href="#demo" data-toggle="collapse">Xem thêm</a> <br/>
+                    @if(Model.CurrentChuongId.HasValue)
+                    {
+                        <a style="margin-top: 20px" class="btn btn-info btn-sm" href="/@Model.MetaTitle/@Model.CurrentMetaTitle-@Model.CurrentChuongId">Đọc Tiếp</a>
+                    }
+                    
                 </div>
                 <br>
                 <div class="col-xl-12 ">
@@ -58,8 +68,9 @@
                                 <div class="card-body row updated-Container1 ml-1 mt-2 dongkengang">
                                     @foreach (var it in Chuongtruyens)
                                     {
+                                        var classCus = it.IsRead ? "IsRead" : "";
                                         <div class="col-xl-6 col-lg-4 col-md-6" id="accordion">
-                                            <a href="/@Model.MetaTitle/@it.MetaTitle-@it.Id_Chuong">Chương @it.DisplayOrder: @it.Ten_Chuong</a><hr>
+                                            <a class="@classCus" href="/@Model.MetaTitle/@it.MetaTitle-@it.Id_Chuong">Chương @it.DisplayOrder: @it.Ten_Chuong</a><hr>
                                         </div>
                                     }
                                 </div>

@@ -17,5 +17,7 @@ namespace Model.ViewModel
         public string Status { set; get; }
         public long? View { set; get; }
         public string MetaTitle { set;get; }
+        public long? CurrentChuongId { get; set; }
+        public string CurrentMetaTitle { get; set; }
     }
 }

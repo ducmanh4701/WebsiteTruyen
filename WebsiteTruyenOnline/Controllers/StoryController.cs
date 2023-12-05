@@ -14,7 +14,31 @@ namespace WebsiteTruyenOnline.Controllers
         public ActionResult Index(long? id)
         {
             var story = new StoryDao().ViewDetail(id);
-            ViewBag.Chuongtruyen = new StoryDao().getAllContentByID(id);
+            var chuongTruyenEntities = new StoryDao().getAllContentByID(id) ?? new List<Model.EF.ChuongTruyen>();
+
+            Guid anonymousId = Guid.Empty;
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                anonymousId = Guid.Parse(reqCookies["anonymousId"].ToString());
+            }
+            var histories = new StoryDao().GetListHistoryByTruyenId(id, anonymousId) ?? new List<Model.EF.History>();
+            var chuongTruyens = chuongTruyenEntities.Select(m => new Model.ViewModel.ChuongTruyenViewModel
+            {
+                DisplayOrder = m.DisplayOrder,
+                Id_Chuong = m.Id_Chuong,
+                Id_Truyen = m.Id_Truyen,
+                MetaTitle = m.MetaTitle,
+                NoiDung_Chuong = m.NoiDung_Chuong,
+                Ten_Chuong = m.Ten_Chuong,
+                IsRead = histories.Any(z => z.ChuongTruyenId == m.Id_Chuong && z.TruyenId == m.Id_Truyen)
+            }).ToList();
+            story.CurrentChuongId = histories.OrderByDescending(m => m.CreatedAt).FirstOrDefault()?.ChuongTruyenId ?? null;
+            if(story.CurrentChuongId.HasValue)
+            {
+                story.CurrentMetaTitle = chuongTruyens.FirstOrDefault(m => m.Id_Chuong == story.CurrentChuongId)?.MetaTitle;
+            }
+            ViewBag.Chuongtruyen = chuongTruyens;
             return View(story);
         }
 
@@ -24,6 +48,22 @@ namespace WebsiteTruyenOnline.Controllers
             ViewBag.Truyen = new StoryDao().ViewDetail(model.Id_Truyen);
             ViewBag.Chuongtruyen = new StoryDao().getAllContentByID(model.Id_Truyen);
             Comment(model.Id_Truyen);
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            var anonymousId = Guid.Empty;
+            if (reqCookies == null)
+            {
+                anonymousId = Guid.NewGuid();
+                HttpCookie userInfo = new HttpCookie("userInfo");
+                userInfo["anonymousId"] = anonymousId.ToString();
+                userInfo.Expires.Add(new TimeSpan(9999, 9999, 9999));
+                Response.Cookies.Add(userInfo);
+            }
+            else
+            {
+                anonymousId = Guid.Parse(reqCookies["anonymousId"].ToString());
+            }
+            new StoryDao().CreateHistory(model.Id_Truyen.Value, model.Id_Chuong, anonymousId);
+
             return View(model);
         }
         [ChildActionOnly]

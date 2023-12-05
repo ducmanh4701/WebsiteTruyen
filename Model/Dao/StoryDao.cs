@@ -263,6 +263,27 @@ namespace Model.Dao
         {
             return db.BinhLuans.Where(x => x.Id_Truyen == id).ToList();
         }
+
+        public List<History> GetListHistoryByTruyenId(long? truyenId, Guid anonymousId) 
+        {
+            return db.Histories.Where(m => m.TruyenId == truyenId && m.AnonymousId == anonymousId).ToList();
+        }
+        public void CreateHistory(long truyenId, long chuongTruyenId, Guid anonymousId)
+        {
+            var hasExists = db.Histories.Any(m => m.TruyenId == truyenId && m.ChuongTruyenId == chuongTruyenId && m.AnonymousId == anonymousId);
+            if(hasExists == false)
+            {
+                db.Histories.Add(new History
+                {
+                    AnonymousId = anonymousId,
+                    ChuongTruyenId = chuongTruyenId,
+                    TruyenId = truyenId,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                });
+                db.SaveChanges();
+            }
+        }
        /* static void Speech(string[] args)
         {
             SpeechSynthesizer _SS = new SpeechSynthesizer();
