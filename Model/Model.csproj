@@ -66,6 +66,7 @@
     <Compile Include="EF\BinhLuan.cs" />
     <Compile Include="EF\BoSuuTap.cs" />
     <Compile Include="EF\ChuongTruyen.cs" />
+    <Compile Include="EF\Follow.cs" />
     <Compile Include="EF\History.cs" />
     <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="EF\TacGia.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ChuongTruyenViewModel.cs" />
     <Compile Include="ViewModel\StoryViewModel.cs" />
+    <Compile Include="ViewModel\TruyenViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

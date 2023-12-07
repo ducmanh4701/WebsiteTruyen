@@ -38,6 +38,16 @@ namespace WebsiteTruyenOnline.Controllers
             {
                 story.CurrentMetaTitle = chuongTruyens.FirstOrDefault(m => m.Id_Chuong == story.CurrentChuongId)?.MetaTitle;
             }
+            
+            if(Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION] != null)
+            {
+                var Users = (WebsiteTruyenOnline.Common.UserLogin)Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION];
+                if(Users != null)
+                {
+                    var follow = new StoryDao().GetFollowByTruyenUser(story.ID, Users.ID);
+                    story.HasFollow = follow != null;
+                }
+            }
             ViewBag.Chuongtruyen = chuongTruyens;
             return View(story);
         }
@@ -55,7 +65,7 @@ namespace WebsiteTruyenOnline.Controllers
                 anonymousId = Guid.NewGuid();
                 HttpCookie userInfo = new HttpCookie("userInfo");
                 userInfo["anonymousId"] = anonymousId.ToString();
-                userInfo.Expires.Add(new TimeSpan(9999, 9999, 9999));
+                userInfo.Expires = DateTime.Now.AddYears(1);
                 Response.Cookies.Add(userInfo);
             }
             else
@@ -71,6 +81,35 @@ namespace WebsiteTruyenOnline.Controllers
         {
             var model = new StoryDao().ListAllComment(id);
             return PartialView(model);
+        }
+
+        [HttpGet]
+        public ActionResult Follow()
+        {
+            if (Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION] != null)
+            {
+                var Users = (WebsiteTruyenOnline.Common.UserLogin)Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION];
+                if(Users != null)
+                {
+                    var results = new StoryDao().GetFollowByUsers(Users.ID);
+                    return View(results);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult Follow(long truyenId, long userId)
+        {
+            new StoryDao().FollowStory(truyenId, userId);
+            return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UnFollows(long truyenId, long userId)
+        {
+            new StoryDao().UnFollowStory(truyenId, userId);
+            return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

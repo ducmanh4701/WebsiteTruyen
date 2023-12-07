@@ -23,6 +23,7 @@ namespace Model.EF
         public virtual DbSet<Truyen> Truyens { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<History> Histories { get; set; }
+        public virtual DbSet<Follow> Follows { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

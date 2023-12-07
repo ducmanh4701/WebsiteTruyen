@@ -23,7 +23,6 @@ namespace Model.Dao
         public StoryViewModel ViewDetail(long? id)
         {
             var truyen = db.Truyens.Find(id);
-
             var Detail = new StoryViewModel()
             {
                 ID = truyen.Id_Truyen,
@@ -141,19 +140,17 @@ namespace Model.Dao
             }
         }
         //insert content 
-        public long InsertContent(ChuongTruyen chuongtruyen, long id_truyen)
+        public long InsertContent(ChuongTruyen chuongtruyen)
         {
             var them = new ChuongTruyen();
             them.Ten_Chuong = chuongtruyen.Ten_Chuong;
             them.NoiDung_Chuong = chuongtruyen.NoiDung_Chuong;
             them.MetaTitle = chuongtruyen.MetaTitle;
-            var truyen = new Truyen();
+            them.Id_Truyen = chuongtruyen.Id_Truyen;
+            var displayOrder = db.ChuongTruyens.Where(m => m.Id_Truyen == chuongtruyen.Id_Truyen).Max(m => m.DisplayOrder);
+            them.DisplayOrder = displayOrder == null ? 1 : displayOrder + 1;
             db.ChuongTruyens.Add(them);
-
-            truyen = db.Truyens.Find(id_truyen);
-            truyen.CreateDate = DateTime.Now;
-            db.SaveChanges();
-            return chuongtruyen.Id_Chuong;
+            return db.SaveChanges();
         }
         // Update Content
         public bool EditContent(ChuongTruyen entity)
@@ -164,10 +161,6 @@ namespace Model.Dao
                 chuong.MetaTitle = entity.MetaTitle;
                 chuong.Ten_Chuong = entity.Ten_Chuong;
                 chuong.NoiDung_Chuong = entity.NoiDung_Chuong;
-                
-                var truyen = db.Truyens.Find(entity.Id_Truyen);
-                truyen.CreateDate = DateTime.Now;
-
                 db.SaveChanges();
                 return true;
             }
@@ -283,6 +276,51 @@ namespace Model.Dao
                 });
                 db.SaveChanges();
             }
+        }
+
+        public void FollowStory(long truyenId, long userId)
+        {
+            db.Follows.Add(new Follow
+            {
+                TruyenId = truyenId,
+                UserId = userId,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            });
+            db.SaveChanges();
+        }
+        public void UnFollowStory(long truyenId, long userId)
+        {
+            var followEntity = db.Follows.FirstOrDefault(m => m.TruyenId == truyenId && m.UserId == userId);
+            if(followEntity != null)
+            {
+                db.Follows.Remove(followEntity);
+                db.SaveChanges();
+            }
+        }
+        public Follow GetFollowByTruyenUser(long truyenId, long userId)
+        {
+            return db.Follows.FirstOrDefault(m => m.TruyenId == truyenId && m.UserId == userId);
+        }
+        public List<TruyenViewModel> GetFollowByUsers(long userId)
+        {
+            var iQueryable = db.Truyens.Join(db.Follows, t => t.Id_Truyen, f => f.TruyenId, (t, f) => new { t, f })
+                .Where(m => m.f.UserId == userId)
+                .AsQueryable();
+            var results = iQueryable.Select(m => new TruyenViewModel
+            {
+                Avt_Truyen = m.t.Avt_Truyen,
+                CreateDate = m.t.CreateDate,
+                GioiThieu_Truyen = m.t.GioiThieu_Truyen,
+                Id_TacGia = m.t.Id_TacGia,
+                Id_TheLoai = m.t.Id_TheLoai,
+                Id_TrangThai = m.t.Id_TrangThai,
+                Id_Truyen = m.t.Id_Truyen,
+                MetaTitle = m.t.MetaTitle,
+                TopHot = m.t.TopHot,
+                TotalView = m.t.TotalView
+            }).ToList();
+            return results;
         }
        /* static void Speech(string[] args)
         {

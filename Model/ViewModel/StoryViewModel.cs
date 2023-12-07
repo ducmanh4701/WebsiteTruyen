@@ -19,5 +19,6 @@ namespace Model.ViewModel
         public string MetaTitle { set;get; }
         public long? CurrentChuongId { get; set; }
         public string CurrentMetaTitle { get; set; }
+        public bool HasFollow { get; set; }
     }
 }

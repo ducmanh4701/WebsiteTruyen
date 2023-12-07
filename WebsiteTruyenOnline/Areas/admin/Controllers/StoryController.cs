@@ -25,6 +25,7 @@ namespace WebsiteTruyenOnline.Areas.admin.Controllers
             var list = new StoryDao();
             List<ChuongTruyen> model = new List<ChuongTruyen>();
             model = list.getAllContentByID(id);
+            ViewBag.id_truyen = id;
             return View(model);
         }
 
@@ -68,12 +69,17 @@ namespace WebsiteTruyenOnline.Areas.admin.Controllers
                 {
                     ModelState.AddModelError("", "Truyện đã tồn tại");
                 }
+                else if(model.MetaTitle == null)
+                {
+                    ModelState.AddModelError("", "Vui lòng nhập tên meta title");
+                }
                 else
                 {
                     var story = new Truyen();
                     story.Ten_Truyen = model.Name;
                     story.GioiThieu_Truyen = model.GioiThieu;
                     story.Avt_Truyen = model.Avt;
+                    story.MetaTitle = model.MetaTitle;
                     long id = dao.Insert(story, model.NameAuthor, model.NameCategory, model.Status);
                     if (id > 0)
                     {
@@ -104,7 +110,7 @@ namespace WebsiteTruyenOnline.Areas.admin.Controllers
                 story.Ten_Truyen = model.Name;
                 story.GioiThieu_Truyen = model.GioiThieu;
                 story.Avt_Truyen = model.Avt;
-
+                story.MetaTitle = model.MetaTitle;
                 bool res = dao.Edit(story, model.NameAuthor, model.NameCategory, model.Status, model.ID);
                 if (res)
                 {
@@ -126,12 +132,13 @@ namespace WebsiteTruyenOnline.Areas.admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateContent()
+        public ActionResult CreateContent(long id)
         {
-            return View();
+            var model = new ChuongTruyen() { Id_Truyen = id };
+            return View(model);
         }
         [HttpPost]
-        public ActionResult CreateContent(ChuongTruyen chuongtruyen, long id)
+        public ActionResult CreateContent(ChuongTruyen chuongtruyen)
         {
             if (ModelState.IsValid)
             {
@@ -150,11 +157,11 @@ namespace WebsiteTruyenOnline.Areas.admin.Controllers
                 }
                 else
                 {
-                    var res = dao.InsertContent(chuongtruyen, id);
+                    var res = dao.InsertContent(chuongtruyen);
 
                     if (res > 0)
                     {
-                        return RedirectToAction("Content", "Story");
+                        return RedirectToAction("Content", "Story", new { id = chuongtruyen.Id_Truyen });
                     }
                     else
                     {
@@ -184,7 +191,7 @@ namespace WebsiteTruyenOnline.Areas.admin.Controllers
                 bool res = dao.EditContent(entity);
                 if (res)
                 {
-                    return RedirectToAction("Index", "Story");
+                    return RedirectToAction("Content", "Story", new { id = entity.Id_Truyen });
                 }
                 else
                 {
@@ -193,13 +200,6 @@ namespace WebsiteTruyenOnline.Areas.admin.Controllers
             }
             return View();
         }
-
-
-
-
-
-
-
         public string ProcessUpload(HttpPostedFileBase file)
         {
 

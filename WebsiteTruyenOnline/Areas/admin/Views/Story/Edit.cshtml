@@ -58,74 +58,82 @@
     <div class="form-horizontal">
         <div class="card-header"><h3 class="text-center font-weight-light my-4 mt">Sửa truyện</h3></div>
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-        <div class="card-body">
-            <div class="row mb-2 justify-content-center">
-                <div class="col-md-8">
-                    <div class="form-floating mb-3 mb-md-0">
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tên truyện" })
-                        <label for="inputName">Tên truyện</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-2 justify-content-center">
-                <div class="col-md-4">
-                    <div class="form-floating mb-3 mb-md-0">
-                        @Html.TextBoxFor(model => model.NameAuthor, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tác giả" })
-                        <label for="inputAuthor">Tác giả</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-floating mb-3 mb-md-0">
-                        @Html.TextBoxFor(model => model.NameCategory, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Thể loại" })
-                        <label for="inputCat">Thể loại</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-2 justify-content-center">
-                <div class="col-md-8">
-                    <div class="form-floating mb-3 mb-md-0">
-                        @Html.DropDownListFor(model => model.Status,
-                        new List<SelectListItem>()
-                        {
-                            new SelectListItem(){Selected = false, Text = "Hoàn thành", Value = "Hoàn thành"},
-                            new SelectListItem(){Selected = false, Text = "Chưa hoàn thành", Value = "Chưa hoàn thành"},
-                            new SelectListItem(){Selected = false, Text = "Bị bỏ dở", Value = "Bị bỏ dở"},
-                        }
-                        , new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Trạng thái" })
-                        <label for="inputStatus">Trạng thái</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-2 justify-content-center">
-                <div class="col-md-8">
-                    <div class="form-floating mb-3 mb-md-0">
-                        @Html.TextBoxFor(model => model.GioiThieu, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Giới thiệu" })
-                        <label for="inputGioiThieu">Giới thiệu</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-2 justify-content-center">
-                <div class="col-md-6">
-                    <div class="form-floating mb-3 mb-md-0">
-                        @Html.TextBoxFor(model => model.Avt, new { @class = "form-control", @placeholder = "Chọn avt truyện", @id = "picture", @name = "picture" })
-                        <label for="inputAvt">Chọn avt truyện </label>
-                        <input type="file" id="fileUpload" accept="image/*" name="fileUpload" style="display:none" />
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-floating mb-3 mb-md-0 mt-4">
-                        <input type="button" id="btnUpload" value="..." />
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-2 justify-content-center ">
-                <img id="pictureUpload" width="1" />
-            </div>
-            <div class="form-group">
-                <div class="text-center">
-                    <input type="submit" value="Sửa" class="btn btn-primary my-2" />
+    <div class="card-body">
+        <div class="row mb-2 justify-content-center">
+            <div class="col-md-8">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tên truyện" })
+                    <label for="inputName">Tên truyện</label>
                 </div>
             </div>
         </div>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-md-8">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.MetaTitle, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "MetaTitle" })
+                    <label for="inputName">MetaTitle</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-md-4">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.NameAuthor, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tác giả" })
+                    <label for="inputAuthor">Tác giả</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.NameCategory, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Thể loại" })
+                    <label for="inputCat">Thể loại</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-md-8">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.DropDownListFor(model => model.Status,
+                    new List<SelectListItem>()
+                    {
+                        new SelectListItem(){Selected = false, Text = "Hoàn thành", Value = "Hoàn thành"},
+                        new SelectListItem(){Selected = false, Text = "Chưa hoàn thành", Value = "Chưa hoàn thành"},
+                        new SelectListItem(){Selected = false, Text = "Bị bỏ dở", Value = "Bị bỏ dở"},
+                    }
+                    , new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Trạng thái" })
+                    <label for="inputStatus">Trạng thái</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-md-8">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.GioiThieu, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Giới thiệu" })
+                    <label for="inputGioiThieu">Giới thiệu</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2 justify-content-center">
+            <div class="col-md-6">
+                <div class="form-floating mb-3 mb-md-0">
+                    @Html.TextBoxFor(model => model.Avt, new { @class = "form-control", @placeholder = "Chọn avt truyện", @id = "picture", @name = "picture" })
+                    <label for="inputAvt">Chọn avt truyện </label>
+                    <input type="file" id="fileUpload" accept="image/*" name="fileUpload" style="display:none" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-floating mb-3 mb-md-0 mt-4">
+                    <input type="button" id="btnUpload" value="..." />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2 justify-content-center ">
+            <img id="pictureUpload" width="1" />
+        </div>
+        <div class="form-group">
+            <div class="text-center">
+                <input type="submit" value="Sửa" class="btn btn-primary my-2" />
+            </div>
+        </div>
+    </div>
     </div>
 }

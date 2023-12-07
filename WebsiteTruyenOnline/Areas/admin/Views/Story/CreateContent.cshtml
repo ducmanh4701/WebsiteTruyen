@@ -19,19 +19,20 @@
         <div class="row mb-2 justify-content-center">
             <div class="col-md-8">
                 <div class="form-floating mb-3 mb-md-0">
+                    @Html.HiddenFor(model => model.Id_Truyen)
                     @Html.TextBoxFor(model => model.Ten_Chuong, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Tên chương" })
                     <label for="inputName">Tên chương</label>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 mt-3">
                 <div class="form-floating mb-3 mb-md-0">
                     @Html.TextBoxFor(model => model.MetaTitle, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "MetaTitle" })
                     <label for="inputMetatitle">MetaTitle</label>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 mt-3">
                 <div class="form-floating mb-3 mb-md-0">
-                    @Html.TextBoxFor(model => model.NoiDung_Chuong, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Nội dung chương" })
+                    @Html.TextAreaFor(model => model.NoiDung_Chuong, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Nội dung chương", rows = 10, cols = 40, @style="height: 250px" })
                     <label for="inputName">Nội dung chương</label>
                 </div>
             </div>

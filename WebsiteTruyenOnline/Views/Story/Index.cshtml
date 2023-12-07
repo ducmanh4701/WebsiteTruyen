@@ -3,6 +3,7 @@
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_Layouts.cshtml";
     var Chuongtruyens = (List<Model.ViewModel.ChuongTruyenViewModel>)ViewBag.Chuongtruyen;
+    var Users = (WebsiteTruyenOnline.Common.UserLogin)Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION];
 }
 
 <head>
@@ -47,12 +48,19 @@
                     <div id="demo" class="collapse">
                         @Model.GioiThieu
                     </div>
-                    <a href="#demo" data-toggle="collapse">Xem thêm</a> <br/>
-                    @if(Model.CurrentChuongId.HasValue)
+                    <a href="#demo" data-toggle="collapse">Xem thêm</a> <br />
+                    @if (Model.CurrentChuongId.HasValue)
                     {
                         <a style="margin-top: 20px" class="btn btn-info btn-sm" href="/@Model.MetaTitle/@Model.CurrentMetaTitle-@Model.CurrentChuongId">Đọc Tiếp</a>
                     }
-                    
+                    @if (Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION] != null)
+                    {
+                        var clsUnFollow = Model.HasFollow == false ? "d-none" : "";
+                        var clsFollow = Model.HasFollow ? "d-none" : "";
+                        <button onclick="fnUnFollows(@Model.ID, @Users.ID)" style="margin-top: 20px" type="button" class="btn btn-info btn-sm unfollow @clsUnFollow">Bỏ Theo Dõi</button>
+                        <button onclick="fnFollows(@Model.ID, @Users.ID)" style="margin-top: 20px" type="button" class="btn btn-info btn-sm follow @clsFollow">Theo Dõi</button>
+                    }
+
                 </div>
                 <br>
                 <div class="col-xl-12 ">
@@ -139,10 +147,47 @@
                         </div>
                     </div>
                 </div><br><br><hr>
-                              <div class="col-12 ">
-                                  <h3>Bình Luận</h3>
-                                  @{Html.RenderAction("Comment", "Story");}
-                              </div>
+                <div class="col-12 ">
+                    <h3>Bình Luận</h3>
+                    @{Html.RenderAction("Comment", "Story");}
+                </div>
             </div>
         </div>
         <hr>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script type="text/javascript">
+            function fnFollows(truyenId, userId) {
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/Story/Follow?truyenId=' + truyenId + '&userId=' + userId,
+                        contentType: false,
+                        processData: false,
+                        success: function () {
+                            $('.follow').addClass('d-none');
+                            $('.unfollow').removeClass('d-none')
+                        },
+                        error: function (err) {
+                            alert('Lỗi: ' + err.statusText);
+                        }
+                    });
+            }
+
+            function fnUnFollows(truyenId, userId) {
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/Story/UnFollows?truyenId=' + truyenId + '&userId=' + userId,
+                        contentType: false,
+                        processData: false,
+                        success: function () {
+                            $('.unfollow').addClass('d-none');
+                            $('.follow').removeClass('d-none');
+                        },
+                        error: function (err) {
+                            alert('Lỗi: ' + err.statusText);
+                        }
+                    });
+            }
+        </script>
+

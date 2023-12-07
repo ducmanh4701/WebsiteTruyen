@@ -51,6 +51,13 @@
                             @{ Html.RenderAction("StatusMenu", "Home");}
                         </div>
                     </li>
+                    @if (Session[WebsiteTruyenOnline.Common.CommonConstants.USER_SESSION] != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Follow", "Story")">Truyện theo dõi</a>
+                        </li>
+                    }
+
                 </ul>
                 <div class="form-inline my-2 my-lg-0 custome-navbar-search">
                     @using (Html.BeginForm("Index", "Search", FormMethod.Get))

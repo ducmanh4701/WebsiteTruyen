@@ -79,11 +79,20 @@
 
     // A $( document ).ready() block.
     $(document).ready(function () {
-        var innerText = document.getElementById('chapter-content');
-        var text = innerText.innerHTML;
-
+        var text = "";
+        console.log(document.getElementById("chapter-content"))
+        if (document.getElementById("chapter-content") === "undefined" || document.getElementById("chapter-content") == null) {
+            var innerText = document.getElementById('chapter-text');
+            text = innerText.innerHTML;
+        }
+        else {
+            var innerText = document.getElementById('chapter-content');
+            text = innerText.innerHTML;
+        }
+        console.log(text)
         text = text.replaceAll("<br>", "");
         text = text.replaceAll(/<div.*<\/div>/g, "");
+        console.log(text);
         $('#txtInput').val(text);
     });
 
@@ -128,7 +137,7 @@
 <div id="chapter-info">
     <div class="container">
         <br>
-        <div class="chapter-text">
+        <div class="chapter-text" id="chapter-text">
             @Html.Raw(Model.NoiDung_Chuong)
         </div>
     </div>

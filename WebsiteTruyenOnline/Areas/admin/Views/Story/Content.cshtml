@@ -15,7 +15,7 @@
             <li class="breadcrumb-item"><a href="/Admin/Home">Trang chủ</a></li>
             <li class="breadcrumb-item active">Nội dung truyện</li>
         </ol>
-        <div class="col-lg-4"></div> <a class="button" href="/Admin/Story/CreateContent">Thêm mới chương</a>
+        <div class="col-lg-4"></div> <a class="button" href="@Url.Action("CreateContent", "Story", new { id =  (long)ViewBag.id_truyen })">Thêm mới chương</a>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
@@ -27,7 +27,6 @@
                             <th>#</th>
                             <th>Tên truyện</th>
                             <th>Tên chương</th>
-                            <th>Nội dung</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -36,7 +35,6 @@
                             <th>#</th>
                             <th>Tên truyện</th>
                             <th>Tên chương</th>
-                            <th>Nội dung</th>
                             <th>Hành động</th>
                         </tr>
                     </tfoot>
@@ -47,16 +45,8 @@
                                 <td>@it.Id_Truyen</td>
                                 <td>@it.Truyen.Ten_Truyen</td>
                                 <td>@it.Ten_Chuong</td>
-                                <td>@it.NoiDung_Chuong</td>>
                                 <td>
-                                    <a href="/Admin/Story/EditContent?@it.Id_Chuong">Sửa</a>
-                                    |
-                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = it.Id_Chuong }, new AjaxOptions
-                               {
-                                   Confirm = "Bạn có muốn xóa chương truyện này?",
-                                   OnComplete = "$('#row_" + it.Id_Chuong + "').remove()",
-                                   HttpMethod = "Delete"
-                               })
+                                    <a href="@Url.Action("EditContent", "Story", new { id = it.Id_Chuong })">Sửa</a>
                                 </td>
                             </tr>
                         }
