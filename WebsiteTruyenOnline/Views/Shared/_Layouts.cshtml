@@ -57,12 +57,11 @@
                             <a class="nav-link" href="@Url.Action("Follow", "Story")">Truyện theo dõi</a>
                         </li>
                     }
-
                 </ul>
                 <div class="form-inline my-2 my-lg-0 custome-navbar-search">
                     @using (Html.BeginForm("Index", "Search", FormMethod.Get))
                     {
-                       
+                   
                         <form class="search" action="">
                             <input type="search" name="searchString" placeholder="Search here..." required>
                             <button type="submit">Search</button>
